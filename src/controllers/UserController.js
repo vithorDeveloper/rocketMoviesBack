@@ -25,7 +25,6 @@ class UserControllers{
 
   async update(request, response){
     const {name, email, password, oldPassword} = request.body
-    // const { id } = request.params
     const user_id = request.user.id
     
 
@@ -40,7 +39,7 @@ class UserControllers{
     const emailUpdate = await database.get("SELECT * FROM users WHERE email = (?)", [email])
 
     if(emailUpdate && emailUpdate.id !== User.id){
-      throw new AppError("email existe")
+      throw new AppError("Este e-mail já está em uso.")
     }
 
     User.name = name ?? User.name

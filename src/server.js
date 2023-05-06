@@ -5,13 +5,13 @@ const migrationsRun = require("./database/sqlite/migrations")
 const express = require("express") // express import
 const Routes = require("./routes")
 const uploadConfig = require("./config/uploads")
-
 const cors = require("cors")
+
 const app = express() // starting from express
+app.use(cors())
 
 app.use(express.json()) // informs express that we are going to use json
 app.use(Routes)
-app.use(cors())
 app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER ))
 
 migrationsRun();
@@ -23,12 +23,14 @@ app.use((error, request, response, next) => {
       message: error.message,
       status: "Error User"
     })
-  } else{
-    response.status(500).json({
+  } 
+  
+  console.log(error)
+
+  return response.status(500).json({
       message: "erro interno do servidor",
       status: "Error server"
-    })   
-  }
+    })  
 })
 
 const PORT = 3333 // port that will be used by the application

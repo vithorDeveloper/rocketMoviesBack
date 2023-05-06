@@ -21,8 +21,8 @@ function ensureAuthenticated(request, response, next){
     console.log(Error)
 
     return next()
-  } catch{
-    throw new AppError("JWT token não inválido", 401)
+  } catch{    
+    throw new AppError("JWT token inválido", 401)
   }
 }
 
