@@ -6,7 +6,7 @@ class moviesNotesController{
     const { movie_title, movie_description, movie_for_the_note, movieTags } = request.body
     const user_id = request.user.id
 
-    const note_id = await knex("notesMovies").insert({
+    const [note_id] = await knex("notesMovies").insert({
         movie_title,
         movie_description,
         movie_for_the_note,
